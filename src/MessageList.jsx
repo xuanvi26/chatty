@@ -1,13 +1,13 @@
 import React from 'react';
 import Message from './Message.jsx';
 
-const MessageList = () => {
-    // const MessageItems = props.messages.map((message) => {
-    //     return <Message />
-    // })
+const MessageList = (props) => {
+    const MessageItems = props.messages.map((message, index) => {
+        return <Message username={message.username} content={message.content} key={index}/>
+    })
     return (
         <main className="messages">
-            <Message />
+            {MessageItems}
         </main>
     )
 }
