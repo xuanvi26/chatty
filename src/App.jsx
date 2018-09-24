@@ -18,6 +18,11 @@ class App extends Component {
     }
   }
 
+  updateMessages = (inputMessage) => {
+    const updatedMessages = this.state.messages.concat(inputMessage)
+    this.setState({messages: updatedMessages})
+  }
+
   render() {
     return (
       <div>
@@ -25,9 +30,10 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser}/>
+        <ChatBar onEnter={this.updateMessages} currentUser={this.state.currentUser}/>
       </div>
     );
   }
 }
+
 export default App;
