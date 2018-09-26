@@ -6,21 +6,18 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [    {
-        username: "Bob",
-        content: "Has anyone seen my marbles?",
-      },
-      {
-        username: "Anonymous",
-        content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-      }],
+      messages: [],
       currentUser: {name: "Bob"}
     }
+    this.socket = new WebSocket('ws:localhost:3001')
   }
 
   updateMessages = (inputMessage) => {
-    const updatedMessages = this.state.messages.concat(inputMessage)
-    this.setState({messages: updatedMessages})
+    this.socket.send(JSON.stringify(inputMessage))
+    this.socket.onmessage = (event) => {
+      const updatedMessages = this.state.messages.concat(JSON.parse(event.data))
+      this.setState({messages: updatedMessages})
+    }
   }
 
   render() {
