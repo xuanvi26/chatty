@@ -12,12 +12,16 @@ class App extends Component {
     this.socket = new WebSocket('ws:localhost:3001')
   }
 
-  updateMessages = (inputMessage) => {
-    this.socket.send(JSON.stringify(inputMessage))
+  componentDidMount() {
     this.socket.onmessage = (event) => {
+      console.log('got message!')
       const updatedMessages = this.state.messages.concat(JSON.parse(event.data))
       this.setState({messages: updatedMessages})
     }
+  }
+
+  updateMessages = (inputMessage) => {
+    this.socket.send(JSON.stringify(inputMessage))
   }
 
   render() {

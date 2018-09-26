@@ -22,17 +22,20 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
-
-  ws.on('message', function incoming(data) {
+  wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
       if(client.readyState === webSocket.OPEN) {
-        messageObj = JSON.parse(data);
-        messageObj.id =  uuidv1();
-        console.log('User', messageObj.username, 'said', messageObj.content, 'with id', messageObj.id)
-        ws.send(JSON.stringify(messageObj));
-        console.log('message', JSON.stringify(messageObj), 'sent to app')
+        console.log('sending')
+        client.send(JSON.stringify(data));
+        // console.log('inside broadcast, message', JSON.stringify(data), 'sent to app')
       }
     })
+  };
+  ws.on('message', function incoming(data) {
+    messageObj = JSON.parse(data);
+    messageObj.id =  uuidv1();
+    // console.log('User', messageObj.username, 'said', messageObj.content, 'with id', messageObj.id)
+    wss.broadcast(messageObj)
   })
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
