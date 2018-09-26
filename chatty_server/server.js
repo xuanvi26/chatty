@@ -22,19 +22,17 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
+
   wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
       if(client.readyState === webSocket.OPEN) {
-        console.log('sending')
         client.send(JSON.stringify(data));
-        // console.log('inside broadcast, message', JSON.stringify(data), 'sent to app')
       }
     })
   };
   ws.on('message', function incoming(data) {
     messageObj = JSON.parse(data);
     messageObj.id =  uuidv1();
-    // console.log('User', messageObj.username, 'said', messageObj.content, 'with id', messageObj.id)
     wss.broadcast(messageObj)
   })
 

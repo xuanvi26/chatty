@@ -7,14 +7,13 @@ class App extends Component {
     super(props)
     this.state = {
       messages: [],
-      currentUser: {name: "Bob"}
+      currentUser: ''
     }
     this.socket = new WebSocket('ws:localhost:3001')
   }
 
   componentDidMount() {
     this.socket.onmessage = (event) => {
-      console.log('got message!')
       const updatedMessages = this.state.messages.concat(JSON.parse(event.data))
       this.setState({messages: updatedMessages})
     }
