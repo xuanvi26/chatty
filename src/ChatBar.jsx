@@ -1,16 +1,22 @@
 import React from 'react';
 
 const ChatBar = (props) => {
-    const onKeyPressHandler = (event) => {
+
+    const onKeyPressHandlerMsg = (event) => {
         if(event.key === 'Enter') {
             props.updateMessages({username: props.currentUser.name, content: event.target.value})
             event.target.value = '';
         }
     }
+
+    const onKeyDownHandlerUser = (event) => {
+        props.updateUser(event.target.value)
+    }
+
     return(
         <footer className="chatbar">
-            <input className="chatbar-username" placeholder={props.currentUser.name} />
-            <input className="chatbar-message" onKeyPress={onKeyPressHandler} placeholder="Type a message and hit ENTER" />
+            <input className="chatbar-username" onChange={onKeyDownHandlerUser} placeholder="Your username" />
+            <input className="chatbar-message" onKeyPress={onKeyPressHandlerMsg} placeholder="Type a message and hit ENTER" />
         </footer>
     )
 }
