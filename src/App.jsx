@@ -9,7 +9,7 @@ class App extends Component {
       messages: [],
       currentUser: {
         name: '',
-        prevName: 'Default'
+        prevName: 'Anonymous'
       },
       numOnlineUsers: 0
     }
@@ -17,15 +17,10 @@ class App extends Component {
 
   updateMessages = (inputMessage) => {
     if (this.state.currentUser.prevName !== inputMessage.username) {
-      inputMessage.type = 'updateUsername';
+      inputMessage.prevUser = this.state.currentUser.prevName;
       this.setState({currentUser: {...this.state.currentUser, prevName: inputMessage.username}})
     } 
       this.socket.send(JSON.stringify(inputMessage))
-  }
-
-  setMessageState = (data) => {
-    const updatedMessages = this.state.messages.concat(data)
-    this.setState({messages: updatedMessages})
   }
 
   updateUser = (inputUser) => {
@@ -39,12 +34,8 @@ class App extends Component {
       const data = JSON.parse(event.data)
       switch(data.type) {
         case "incomingMessage":
-          console.log('incomingMessage data:', data)
-          this.setMessageState(data)
-          break;
-        case "incomingNotification":
-          console.log('incoming Notification data:', data)
-          this.setMessageState(data)
+          const updatedMessages = this.state.messages.concat(data)
+          this.setState({messages: updatedMessages})
           break;
         case "onlineUsers":
           this.setState({numOnlineUsers: data.count})

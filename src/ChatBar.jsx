@@ -4,7 +4,6 @@ const ChatBar = (props) => {
 
     const onKeyPressHandlerMsg = (event) => {
         if(event.key === 'Enter') {
-            console.log(props);
             props.updateMessages({username: props.currentUser.name, content: event.target.value})
             event.target.value = '';
         }

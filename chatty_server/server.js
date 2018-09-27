@@ -25,11 +25,7 @@ wss.on('connection', (ws) => {
   ws.on('message', function incoming(data) {
     messageObj = JSON.parse(data)
     messageObj.id =  uuidv1()
-    if(messageObj.type === 'updateUsername') {
-      messageObj.type = 'incomingNotification';
-    } else {
-      messageObj.type = 'incomingMessage'
-    }
+    messageObj.type = 'incomingMessage'
     wss.broadcast(messageObj)
   })
 
