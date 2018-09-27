@@ -34,6 +34,7 @@ class App extends Component {
       const data = JSON.parse(event.data)
       switch(data.type) {
         case "incomingMessage":
+          console.log(data.userColor)
           const updatedMessages = this.state.messages.concat(data)
           this.setState({messages: updatedMessages})
           break;

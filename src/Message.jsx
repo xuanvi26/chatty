@@ -1,10 +1,14 @@
 import React from 'react';
 
 const Message = (props) => {
+    
+    let userColor = {
+        color: props.userColor
+    }
     return (
         <div>
             <div className="message">
-                <span className="message-username">{props.username}</span>
+                <span className='message-username' style={userColor}>{props.username}</span>
                 <span className="message-content">{props.content}</span>
             </div>
             <div className="message system">

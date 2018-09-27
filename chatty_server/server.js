@@ -11,8 +11,18 @@ const server = express()
 
 const wss = new SocketServer({ server });
 
+const randomColor = function() {
+  let hex = '0123456789ABCDEF';
+  let color = '#';
+  for(let i = 0; i < 6; i++) {
+    color += hex.charAt(Math.floor(Math.random() * 16));
+  }
+  return color;
+}
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  let userColor = randomColor();
 
   wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
@@ -26,6 +36,7 @@ wss.on('connection', (ws) => {
     messageObj = JSON.parse(data)
     messageObj.id =  uuidv1()
     messageObj.type = 'incomingMessage'
+    messageObj.userColor = userColor;
     wss.broadcast(messageObj)
   })
 
