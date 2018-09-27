@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 h1 {
   color: tomato;
 }
@@ -5,14 +7,13 @@ h1 {
 body {
   background: white;
   color: black;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   margin: 70px 0;
 }
 
 .chatbar {
-  background: tomato;
-  border-top: 1px solid black;
+  background-color: rgba(54, 221, 233, 0.877);
   bottom: 0;
   display: flex;
   left: 0;
@@ -23,7 +24,8 @@ body {
 
 .chatbar-message,
 .chatbar-username {
-  border: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 10px;
   display: block;
   height: 40px;
   line-height: 40px;
@@ -70,8 +72,7 @@ body {
 }
 
 .navbar {
-  background: tomato;
-  border-bottom: 1px solid black;
+  background-image: linear-gradient(to bottom right, rgba(54, 233, 173, 0.877), rgba(54, 221, 233, 0.877));
   height: 60px;
   left: 0;
   padding: 0 10px;
