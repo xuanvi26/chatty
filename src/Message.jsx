@@ -8,7 +8,7 @@ const Message = (props) => {
                 <span className="message-content">{props.content}</span>
             </div>
             <div className="message system">
-                Anonymous1 changed their name to nomnom.
+                <span>Anonymous1 changed their name to nomnom.</span>
             </div>
         </div>
     )

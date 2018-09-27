@@ -10,7 +10,11 @@ const ChatBar = (props) => {
     }
 
     const onKeyDownHandlerUser = (event) => {
-        props.updateUser(event.target.value)
+        props.updateUser(false, {name: event.target.value});
+        if(event.key === 'Enter') {
+            props.updateUser(true, {name: event.target.value});
+        }
+
     }
 
     return(

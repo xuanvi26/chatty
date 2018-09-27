@@ -7,23 +7,49 @@ class App extends Component {
     super(props)
     this.state = {
       messages: [],
-      currentUser: {}
+      currentUser: {
+        name: '',
+        prevName: ''
+      },
+      numOnlineUsers: 0
     }
-    this.socket = new WebSocket('ws:localhost:3001')
   }
 
   updateMessages = (inputMessage) => {
+    inputMessage.type = 'postMessage'
     this.socket.send(JSON.stringify(inputMessage))
   }
 
-  updateUser = (inputUser) => {
-    this.setState({currentUser: {name: inputUser}})
+  updateUser = (enter, inputUser) => {
+    if (enter && this.state.currentUser.prevName !== inputUser.name) {
+      inputUser.type = 'updateUsername';
+      this.socket.send(JSON.stringify(inputUser));
+      this.setState({currentUser: {name: inputUser.name, prevName: inputUser.name}})
+    } else {
+      this.setState({currentUser: {name: inputUser.name}})
+    }
   }
 
   componentDidMount() {
+    this.socket = new WebSocket('ws:localhost:3001')
+
     this.socket.onmessage = (event) => {
-      const updatedMessages = this.state.messages.concat(JSON.parse(event.data))
-      this.setState({messages: updatedMessages})
+      const data = JSON.parse(event.data)
+      switch(data.type) {
+        case "incomingMessage":
+          const updatedMessages = this.state.messages.concat(data)
+          this.setState({messages: updatedMessages})
+          break;
+        case "incomingNotification":
+          // handle incoming notification
+          break;
+        case "onlineUsers":
+          console.log('did we get online users')
+          this.setState({numOnlineUsers: data.count})
+          break;
+        default:
+          throw new Error("Unknown event type " + data.type);
+      }
     }
   }
 
@@ -32,6 +58,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <span className="navbar-users">{this.state.numOnlineUsers === 0 ? 'Loading...' : `${this.state.numOnlineUsers} user(s) online`} </span>
         </nav>
         <MessageList messages={this.state.messages}/>
         <ChatBar updateMessages={this.updateMessages} updateUser={this.updateUser} currentUser={this.state.currentUser}/>
