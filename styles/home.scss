@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-h1 {
-  color: tomato;
-}
-
 body {
   background: white;
   color: black;
@@ -13,7 +9,7 @@ body {
 }
 
 .chatbar {
-  background-color: rgba(54, 221, 233, 0.877);
+  background-color: rgba(54, 125, 233, 0.877);
   bottom: 0;
   display: flex;
   left: 0;
@@ -72,7 +68,7 @@ body {
 }
 
 .navbar {
-  background-image: linear-gradient(to bottom right, rgba(54, 233, 173, 0.877), rgba(54, 221, 233, 0.877));
+  background-image: linear-gradient(to bottom right, rgba(54, 60, 233, 0.877), rgba(54, 125, 233, 0.877));
   height: 60px;
   left: 0;
   padding: 0 10px;
@@ -82,7 +78,7 @@ body {
 }
 
 .navbar-brand {
-  color: inherit;
+  color: whitesmoke;
   display: block;
   float: left;
   font-weight: 700;
@@ -95,7 +91,8 @@ body {
 
 .navbar-users {
   float: right;
+  color:whitesmoke;
   padding-right: 10px;
   line-height: 60px;
-  font-size: 18px;
+  font-size: 16px;
 }
