@@ -3,7 +3,7 @@ import React from 'react';
 const ChatBar = (props) => {
 
     const onKeyPressHandlerMsg = (event) => {
-        if(event.key === 'Enter') {
+        if(event.key === 'Enter' && event.target.value !== '') {
             props.updateMessages({username: props.currentUser.name, content: event.target.value})
             event.target.value = '';
         }

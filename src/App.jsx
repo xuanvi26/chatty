@@ -27,6 +27,11 @@ class App extends Component {
       this.setState({currentUser: {...this.state.currentUser, name: inputUser}})
   }
 
+  changeMessageState = (data) => {
+    const updatedMessages = this.state.messages.concat(data)
+    this.setState({messages: updatedMessages})
+  }
+
   componentDidMount() {
     this.socket = new WebSocket('ws:localhost:3001')
 
@@ -34,12 +39,21 @@ class App extends Component {
       const data = JSON.parse(event.data)
       switch(data.type) {
         case "incomingMessage":
-          console.log(data.userColor)
-          const updatedMessages = this.state.messages.concat(data)
-          this.setState({messages: updatedMessages})
+          this.changeMessageState(data);
           break;
         case "onlineUsers":
-          this.setState({numOnlineUsers: data.count})
+          console.log('calling onlineUsers')
+          this.setState({numOnlineUsers: data.count});
+          this.changeMessageState(data);
+          break;
+        case "connectUser":
+          console.log('calling connectUser')
+          this.changeMessageState(data);
+          break;
+        case "disconnectUser":
+          console.log('calling disconnectUser')
+          console.log(data)
+          this.changeMessageState(data);
           break;
         default:
           throw new Error("Unknown event type " + data.type);
