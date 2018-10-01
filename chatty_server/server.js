@@ -42,6 +42,7 @@ wss.on('connection', (ws) => {
     messageObj.id =  uuidv1()
     messageObj.type = 'incomingMessage'
     messageObj.userColor = userColor;
+    userName = messageObj.username;
     wss.broadcast(messageObj)
   })
 
