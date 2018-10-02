@@ -37,23 +37,15 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)
-      console.log(data)
       switch(data.type) {
         case "incomingMessage":
-          this.changeMessageState(data);
-          break;
         case "incomingImage":
-          console.log('incoming image!!')
+        case "connectUser":
+        case "disconnectUser":
           this.changeMessageState(data);
           break;
         case "onlineUsers":
           this.setState({numOnlineUsers: data.count});
-          break;
-        case "connectUser":
-          this.changeMessageState(data);
-          break;
-        case "disconnectUser":
-          this.changeMessageState(data);
           break;
         default:
           throw new Error("Unknown event type " + data.type);

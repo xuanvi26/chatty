@@ -31,13 +31,13 @@ const Message = (props) => {
         </div>
         )
     }
-    console.log(props);
+
     return (
         <div>
 
-            {props.type === 'connectUser' ? <span className='message system'>{props.username} user joined the chat room</span> : undefined}
+            {props.type === 'connectUser' ? <span className='message system'>{props.username} user joined the chat room.</span> : undefined}
 
-            {props.type === 'disconnectUser' ? <span className='message system'>{props.username} disconnected from the chat room</span> : undefined}
+            {props.type === 'disconnectUser' ? <span className='message system'>{props.username} disconnected from the chat room.</span> : undefined}
 
             {props.type === 'incomingMessage' || props.type === 'incomingImage' ? generateMessageHTML(props.type) : undefined}
 
