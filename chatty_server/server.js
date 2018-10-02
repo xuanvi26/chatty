@@ -11,13 +11,17 @@ const server = express()
 
 const wss = new SocketServer({ server });
 
-const randomColor = function() {
+function randomColor() {
   let hex = '0123456789ABCDEF';
   let color = '#';
   for(let i = 0; i < 6; i++) {
     color += hex.charAt(Math.floor(Math.random() * 16));
   }
   return color;
+}
+
+function checkURL(url) {
+  return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }
 
 wss.on('connection', (ws) => {
@@ -40,9 +44,13 @@ wss.on('connection', (ws) => {
   ws.on('message', function incoming(data) {
     messageObj = JSON.parse(data)
     messageObj.id =  uuidv1()
-    messageObj.type = 'incomingMessage'
     messageObj.userColor = userColor;
     userName = messageObj.username;
+    if(checkURL(messageObj.content)) {
+      messageObj.type ='incomingImage'
+    } else {
+      messageObj.type = 'incomingMessage'
+    }
     wss.broadcast(messageObj)
   })
 

@@ -8,7 +8,7 @@ class App extends Component {
     this.state = {
       messages: [],
       currentUser: {
-        name: '',
+        name: 'Anonymous',
         prevName: 'Anonymous'
       },
       numOnlineUsers: 0
@@ -37,22 +37,22 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)
+      console.log(data)
       switch(data.type) {
         case "incomingMessage":
           this.changeMessageState(data);
           break;
-        case "onlineUsers":
-          console.log('calling onlineUsers')
-          this.setState({numOnlineUsers: data.count});
+        case "incomingImage":
+          console.log('incoming image!!')
           this.changeMessageState(data);
           break;
+        case "onlineUsers":
+          this.setState({numOnlineUsers: data.count});
+          break;
         case "connectUser":
-          console.log('calling connectUser')
           this.changeMessageState(data);
           break;
         case "disconnectUser":
-          console.log('calling disconnectUser')
-          console.log(data)
           this.changeMessageState(data);
           break;
         default:
