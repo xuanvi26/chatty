@@ -4,7 +4,7 @@ const ChatBar = (props) => {
 
     const onKeyPressHandlerMsg = (event) => {
         if(event.key === 'Enter' && event.target.value !== '') {
-            props.updateMessages({username: props.currentUser.name, content: event.target.value})
+            props.sendMessage({username: props.currentUser.name, content: event.target.value});
             event.target.value = '';
         }
     }
@@ -18,7 +18,7 @@ const ChatBar = (props) => {
             <input className="chatbar-username" onChange={onKeyDownHandlerUser} placeholder="Your username" />
             <input className="chatbar-message" onKeyPress={onKeyPressHandlerMsg} placeholder="Type a message and hit ENTER" />
         </footer>
-    )
+    );
 }
 
 export default ChatBar;

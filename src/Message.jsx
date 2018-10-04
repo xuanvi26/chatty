@@ -10,7 +10,7 @@ const Message = (props) => {
         <div>
             {props.prevUser !== undefined ? <span className="message system">{props.prevUser} changed their name to {props.username}</span> : undefined}
         </div>
-    )
+    );
 
     const getMessageBody = (type) => (
         <div className="message">
@@ -22,14 +22,14 @@ const Message = (props) => {
                 : 
                 <span className="message-content">{props.content}</span>}
         </div> 
-    )
+    );
 
     const generateMessageHTML = (type) => {
         return (<div>
             {getUserChange()}
             {getMessageBody(type)}
         </div>
-        )
+        );
     }
 
     return (
@@ -42,7 +42,7 @@ const Message = (props) => {
             {props.type === 'incomingMessage' || props.type === 'incomingImage' ? generateMessageHTML(props.type) : undefined}
 
         </div>
-    )
+    );
 }
 
 export default Message;

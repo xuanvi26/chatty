@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import MessageList from './MessageList.jsx';
-import ChatBar from './ChatBar.jsx'
+import ChatBar from './ChatBar.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -15,28 +15,28 @@ class App extends Component {
     }
   }
 
-  updateMessages = (inputMessage) => {
+  sendMessage = (inputMessage) => {
     if (this.state.currentUser.prevName !== inputMessage.username) {
       inputMessage.prevUser = this.state.currentUser.prevName;
-      this.setState({currentUser: {...this.state.currentUser, prevName: inputMessage.username}})
+      this.setState({currentUser: {...this.state.currentUser, prevName: this.state.currentUser.name}});
     } 
-      this.socket.send(JSON.stringify(inputMessage))
+      this.socket.send(JSON.stringify(inputMessage));
   }
 
   updateUser = (inputUser) => {
-      this.setState({currentUser: {...this.state.currentUser, name: inputUser}})
+      this.setState({currentUser: {...this.state.currentUser, name: inputUser}});
   }
 
   changeMessageState = (data) => {
-    const updatedMessages = this.state.messages.concat(data)
-    this.setState({messages: updatedMessages})
+    const updatedMessages = this.state.messages.concat(data);
+    this.setState({messages: updatedMessages});
   }
 
   componentDidMount() {
-    this.socket = new WebSocket('ws:localhost:3001')
+    this.socket = new WebSocket('ws:localhost:3001');
 
     this.socket.onmessage = (event) => {
-      const data = JSON.parse(event.data)
+      const data = JSON.parse(event.data);
       switch(data.type) {
         case "incomingMessage":
         case "incomingImage":
@@ -61,7 +61,7 @@ class App extends Component {
           <span className="navbar-users">{this.state.numOnlineUsers === 0 ? 'Loading...' : `${this.state.numOnlineUsers} user(s) online`} </span>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser} updateMessages={this.updateMessages} updateUser={this.updateUser}/>
+        <ChatBar currentUser={this.state.currentUser} sendMessage={this.sendMessage} updateUser={this.updateUser}/>
       </div>
     );
   }

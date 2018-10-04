@@ -28,15 +28,15 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
   
   let userColor = randomColor();
-  let userName = 'Anonymous'
+  let userName = 'Anonymous';
   
   wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
       if(client.readyState === webSocket.OPEN) {
-        client.send(JSON.stringify(data))
+        client.send(JSON.stringify(data));
       }
-    })
-  };
+    });
+  }
 
   wss.broadcast({type: "onlineUsers", count: wss.clients.size})
   wss.broadcast({type: "connectUser", username: userName})
@@ -47,16 +47,16 @@ wss.on('connection', (ws) => {
     messageObj.userColor = userColor;
     userName = messageObj.username;
     if(checkURL(messageObj.content)) {
-      messageObj.type ='incomingImage'
+      messageObj.type ='incomingImage';
     } else {
-      messageObj.type = 'incomingMessage'
+      messageObj.type = 'incomingMessage';
     }
-    wss.broadcast(messageObj)
-  })
+    wss.broadcast(messageObj);
+  });
 
   ws.on('close', () => {
-    console.log('Client disconnected')
     wss.broadcast({type: 'onlineUsers', count: wss.clients.size})
     wss.broadcast({type: 'disconnectUser', username: userName})
+    console.log('Client disconnected')
   });
 });
