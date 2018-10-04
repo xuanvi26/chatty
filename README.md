@@ -6,8 +6,7 @@ A client-side single-page chatroom application built with ReactJS, Webpack, Babe
 
 ## Dependencies
 
-* react
-* ReactDOM
+* React
 * Express
 * uuid
 * ws
