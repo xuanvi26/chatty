@@ -3,7 +3,7 @@
 A client-side single-page chatroom application built with ReactJS, Webpack, Babel, Node.js and Web Sockets.
 
 ## Final Product
-
+![Final Product](https://im2.ezgif.com/tmp/ezgif-2-623cef50e2c5.gif)
 ## Dependencies
 
 * React
