@@ -3,7 +3,7 @@
 A client-side single-page chatroom application built with ReactJS, Webpack, Babel, Node.js and Web Sockets.
 
 ## Final Product
-![Final Product](https://imgur.com/yk78Xjz)
+![Final Product](https://imgur.com/yk78Xjz.gif)
 ## Dependencies
 
 * React
